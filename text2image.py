@@ -56,27 +56,6 @@ class FontDescription:
 		self.name = font_name
 		self.size = size
    
-def ReadDescription(file_in):
-	InpDescr = open(file_in, "r").readlines()
-	description = DescriptionImage()
-	descrFont = FontDescription()
-	for string in InpDescr:
-		h = string.split("=")
-		if (len(h) < 2):
-			continue
-		name = h[0].strip()
-		value = h[1].strip()
-		if (name in IntData):
-			setattr(description, name, int(value))
-		elif (name in FontData):
-			if (name == 'font'):
-				descrFont.name = value
-			else:
-				descrFont.size = int(value)
-		else:
-			setattr(description, name, value)
-	description.font = descrFont
-	return description
 	
 def ShowDescription(desc):
 	print(desc.encoding)
@@ -122,8 +101,6 @@ for st in inp:
 		continue
 	name = st[0 : ind].strip()
 	text = st[ind + 1:].strip()
-
-	#print("Input string:" + st + ", retrieced text: " + text + "\n")
 
 	# Check the size of image
 	sizes = font.getsize(text)
